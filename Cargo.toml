@@ -1,0 +1,14 @@
+[workspace]
+resolver = "2"
+members = ["crates/dkdc-io-imessage"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/dkdc-io/imessage-plugin"
+authors = ["Cody <cody@dkdc.io>"]
+
+[profile.release]
+lto = "thin"
+strip = true
