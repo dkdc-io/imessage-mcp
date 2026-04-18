@@ -76,9 +76,9 @@ codex mcp add imessage -- dkdc-io-imessage --stdio
 codex mcp list
 ```
 
-This uses Cody's fork at
-<https://github.com/lostmygithubaccount/codex>. Upstream OpenAI Codex does not
-ship `codex mcp add` today.
+`codex mcp add` works on both upstream Codex and Cody's fork. The fork at
+<https://github.com/lostmygithubaccount/codex> only adds async channel support
+around `CODEX_CHANNEL_DIR`.
 
 Direct edit works too, for reference:
 
