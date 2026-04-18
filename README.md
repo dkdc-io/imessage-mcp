@@ -95,6 +95,7 @@ defaul…
 - no framework lock-in: Codex CLI, Claude Code, or any stdio MCP client
 - real Messages integration: send via AppleScript, read from `chat.db`
 - live push: incoming iMessages auto-inject as channel notifications
+- attachment-aware reads: inbound messages surface `image_path` for any attachments so the LLM can `Read` them directly
 - tight surface area: three tools, no extra daemon, no event bus
 - fail closed: no allowlist means no access
 
@@ -140,7 +141,7 @@ The server name (`imessage`) becomes the MCP namespace in the tool list:
 
 To enable inbound-message push:
 
-- Codex: nothing extra. The fork's inbox watcher handles it when `CODEX_CHANNEL_DIR` is set.
+- Codex: nothing extra for `codex mcp add` itself. That works on both upstream Codex and Cody's fork. The fork only adds the async channel watcher when `CODEX_CHANNEL_DIR` is set.
 - Claude Code: add `--dangerously-load-development-channels server:imessage` to the `claude` invocation. This is an experimental flag. It opts the session into the channel surface so `dkdc-io-imessage --watch` can push `notifications/claude/channel` events that render as `← imessage · <handle>: <text>`.
 
 Direct edit works too, for reference:
@@ -165,9 +166,9 @@ args = ["--stdio"]
 }
 ```
 
-Codex note: the `codex mcp add` flow in this repo uses Cody's fork at
-<https://github.com/lostmygithubaccount/codex>. Upstream OpenAI Codex does not
-ship that command today.
+Codex note: `codex mcp add` works on both upstream Codex and Cody's fork. The
+fork at <https://github.com/lostmygithubaccount/codex> only adds async channel
+support around `CODEX_CHANNEL_DIR`.
 
 ## Security posture
 
@@ -182,6 +183,18 @@ The anti-regression coverage lives in `tests/injection.rs` and
 `crates/imessage-mcp/tests/claude_parity.md`.
 
 ## Develop
+
+Install the local hook gate first:
+
+```sh
+bin/setup
+```
+
+That configures `core.hooksPath` to use `.githooks/pre-commit`, which runs:
+
+- `cargo fmt --all -- --check`
+- `cargo clippy --workspace --all-targets -- -D warnings`
+- `cargo test --workspace`
 
 ```sh
 cargo fmt --all -- --check
