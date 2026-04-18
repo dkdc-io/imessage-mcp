@@ -17,7 +17,7 @@ follows [Keep a Changelog](https://keepachangelog.com/) and the project uses
 - Ported the old Netsky `demo-claude-imessage.sh` flow into an opt-in live
   integration test at `crates/dkdc-io-imessage/tests/claude_parity.rs`, with
   prerequisites and run instructions in `tests/claude_parity.md`.
-- Added a repo README "Same plugin, Claude Code" section with the captured
+- Added a repo README "Same MCP server, Claude Code" section with the captured
   Claude TUI round-trip, to match the Codex demo block.
 
 ## [0.1.4] - 2026-04-18
@@ -41,11 +41,11 @@ follows [Keep a Changelog](https://keepachangelog.com/) and the project uses
 
 ### Added
 
-- Prior-art attribution to Anthropic's official iMessage plugin for Claude
+- Prior-art attribution to Anthropic's official iMessage MCP server for Claude
   Code ([`anthropics/claude-plugins-official/external_plugins/imessage`][upstream]),
-  the TypeScript/Bun implementation that pioneered the chat.db + AppleScript +
-  allowlist shape. Acknowledgment lands in both READMEs and in the crate's
-  top-level module docstring.
+  the TypeScript/Bun implementation that established the chat.db +
+  AppleScript + allowlist shape. Acknowledgment lands in both READMEs and in
+  the crate's top-level module docstring.
 
 [upstream]: https://github.com/anthropics/claude-plugins-official/tree/main/external_plugins/imessage
 

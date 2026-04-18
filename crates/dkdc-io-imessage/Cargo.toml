@@ -1,6 +1,6 @@
 [package]
 name = "dkdc-io-imessage"
-description = "iMessage MCP plugin for Codex CLI and Claude Code. Lets an LLM read and send iMessage on macOS."
+description = "iMessage MCP server for Codex CLI and Claude Code. Lets an LLM read and send iMessage on macOS."
 version.workspace = true
 edition.workspace = true
 license.workspace = true

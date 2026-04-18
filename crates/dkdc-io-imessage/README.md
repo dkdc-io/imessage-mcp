@@ -1,6 +1,6 @@
 # dkdc-io-imessage
 
-An iMessage MCP plugin. Lets an LLM CLI (Codex CLI, Claude Code, or any
+An iMessage MCP server. Lets an LLM CLI (Codex CLI, Claude Code, or any
 JSON-RPC-over-stdio MCP client) read and send iMessages on macOS.
 
 Three tools:
@@ -76,6 +76,10 @@ codex mcp add imessage -- dkdc-io-imessage --stdio
 codex mcp list
 ```
 
+This uses Cody's fork at
+<https://github.com/lostmygithubaccount/codex>. Upstream OpenAI Codex does not
+ship `codex mcp add` today.
+
 Direct edit works too, for reference:
 
 ```toml
@@ -143,11 +147,13 @@ After setup:
 
 ## Prior art
 
-Inspired by Anthropic's official iMessage plugin for Claude Code
-([anthropics/claude-plugins-official/external_plugins/imessage][upstream]),
-which pioneered the chat.db + AppleScript + allowlist shape. This is an
-independent Rust implementation with an LLM-CLI-agnostic surface (Codex CLI,
-Claude Code, or any MCP-over-stdio client).
+Anthropic shipped the original TypeScript/Bun iMessage MCP server for Claude Code
+([anthropics/claude-plugins-official/external_plugins/imessage][upstream]).
+We first ported that shape, then hit two correctness bugs: typedstream
+truncation on messages above roughly 130 bytes, and echo-tracker replay of
+outbound replies as inbound messages. Those bugs were fixed, then the project
+was rewritten in Rust for correctness, not speed. The current server keeps the
+same chat.db + AppleScript + allowlist shape with an LLM-CLI-agnostic surface.
 
 [upstream]: https://github.com/anthropics/claude-plugins-official/tree/main/external_plugins/imessage
 

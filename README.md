@@ -61,7 +61,7 @@ A text arrives. Codex runs `cal`. The calendar comes back as iMessage.
 This is the whole pitch: your agent can stay in the terminal while you stay on
 your phone.
 
-## Same plugin, Claude Code
+## Same MCP server, Claude Code
 
 Same binary. Same three tools. Same round-trip.
 
@@ -131,6 +131,10 @@ Then:
 Full setup and config snippets for Codex and Claude Code live in the
 [crate README](crates/dkdc-io-imessage/README.md).
 
+Codex note: the `codex mcp add` flow in this repo uses Cody's fork at
+<https://github.com/lostmygithubaccount/codex>. Upstream OpenAI Codex does not
+ship that command today.
+
 ## Security posture
 
 - `reply` only sends to allowlisted handles or `self.chat_id`
@@ -153,12 +157,14 @@ cargo test --workspace
 
 ## Prior art
 
-This is an independent Rust implementation inspired by Anthropic's official
-iMessage plugin for Claude Code
+Anthropic shipped the original TypeScript/Bun iMessage MCP server for Claude Code
 ([anthropics/claude-plugins-official/external_plugins/imessage][upstream]).
-That project established the shape: stdio MCP, `chat.db` reads, AppleScript
-send, local allowlist. This repo keeps that shape and ships it as one Rust
-binary for any MCP-over-stdio client.
+We first ported that shape directly. Then two correctness bugs surfaced:
+typedstream parsing truncated messages above roughly 130 bytes, and the
+echo-tracker could re-surface outbound replies as inbound messages. Those bugs
+were fixed, then the project was rewritten in Rust for correctness, not speed.
+The shape stayed the same: stdio MCP, `chat.db` reads, AppleScript send, local
+allowlist.
 
 [upstream]: https://github.com/anthropics/claude-plugins-official/tree/main/external_plugins/imessage
 
