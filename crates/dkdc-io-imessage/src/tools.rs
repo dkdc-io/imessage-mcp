@@ -1,8 +1,6 @@
-//! Tool handlers, decoupled from the MCP transport layer. Each handler takes
-//! parsed arguments + shared state and returns a JSON value for the response.
-//!
-//! Splitting transport from tool logic lets us unit-test the tool path without
-//! standing up a full stdio server.
+//! Tool handlers, decoupled from the MCP transport. Each handler takes parsed
+//! arguments plus shared state and returns a JSON value. The split lets us
+//! unit-test the tool path without standing up a full stdio server.
 
 use std::collections::HashSet;
 use std::sync::{Arc, Mutex};

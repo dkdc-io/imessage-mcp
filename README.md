@@ -41,7 +41,7 @@ imessage-plugin/
       tests/stdio_smoke.rs                # end-to-end JSON-RPC smoke
 ```
 
-One crate, one binary. No netsky coupling.
+One crate, one binary, zero runtime dependencies on any host framework.
 
 ## Develop
 

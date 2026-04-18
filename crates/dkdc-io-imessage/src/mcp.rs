@@ -1,13 +1,13 @@
 //! Minimal MCP server over stdio (JSON-RPC 2.0, line-delimited).
 //!
-//! Implements exactly what the brief asks for:
+//! Handles:
 //! - `initialize` — returns capabilities + server info.
 //! - `tools/list` — returns the three tool definitions from [`crate::tools`].
 //! - `tools/call` — dispatches to `reply`, `list_messages`, `read_message`.
 //! - `ping` — empty result.
 //!
-//! No channel events, no notifications, no mutation ledger. Transport is the
-//! standard LLM-CLI MCP stdio shape (used by Codex CLI and Claude Code).
+//! Transport is the standard MCP stdio shape used by Codex CLI and Claude Code.
+//! No channel-event extensions; a client only gets what it asks for.
 
 use std::sync::Arc;
 
